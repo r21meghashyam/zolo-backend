@@ -1,8 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-
 const dotenv = require('dotenv')
+const cors = require('cors');
 
 
 dotenv.config();
@@ -23,6 +23,12 @@ mongoose.connect(`mongodb://${MONGODB_IP}:${MONGODB_PORT}/${MONGODB_DATABASE}`, 
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors({
+    origin:[
+        "http://localhost:3000"
+    ],
+    credentials:true
+}))
 
 // Routes
 const UsersRoute = require('./routes/users');
